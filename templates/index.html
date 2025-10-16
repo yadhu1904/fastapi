@@ -68,16 +68,26 @@
     </div>
 
     <div class="container">
-        <h2>Your Notes</h2>
-        {% if newDocs is defined %}
-        No notes to Display
-{% endif %}
-        {% for item in newDocs %}        
-        <div>
-            {{ item.note }}
+  <h2>Your Notes</h2>
+
+  {# Show empty state only when the list is empty #}
+  {% if not newDocs %}
+    <div class="text-muted">No notes to display</div>
+  {% else %}
+    {% for item in newDocs %}
+      <div class="card mb-2">
+        <div class="card-body">
+          <h5 class="card-title">{{ item.title }}</h5>
+          <p class="card-text">{{ item.description }}</p>
+          {% if item.important %}
+            <span class="badge text-bg-warning">Important</span>
+          {% endif %}
+          <small class="text-muted">ID: {{ item.id }}</small>
         </div>
-        {% endfor %}
-    </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>
 </html>
